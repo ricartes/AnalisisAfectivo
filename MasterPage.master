@@ -1,0 +1,379 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+
+<html lang="es">
+
+<head id="Head1" runat="server">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <meta name="author" content="">
+
+    <title>Análisis Afectivo</title>
+
+    <!-- Font Awesome -->
+    <link href="<%= ResolveClientUrl("~/vendors/font-awesome/css/font-awesome.min.css") %>"
+        rel="stylesheet" />
+    <!-- NProgress -->
+    <link href="<%= ResolveClientUrl("~/vendors/nprogress/nprogress.css") %>" rel="stylesheet" />
+    <!-- iCheck -->
+    <link href="<%= ResolveClientUrl("~/vendors/iCheck/skins/flat/green.css") %>" rel="stylesheet" />
+    <!-- bootstrap-progressbar -->
+    <link href="<%= ResolveClientUrl("~/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css") %>"
+        rel="stylesheet" />
+    <!-- JQVMap -->
+    <link href="<%= ResolveClientUrl("~/vendors/jqvmap/dist/jqvmap.min.css") %>" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="<%= ResolveClientUrl("~/vendors/bootstrap-daterangepicker/daterangepicker.css") %>"
+        rel="stylesheet" />
+
+
+    <link href="<%= ResolveClientUrl("~/build/css/custom.min.css") %>" rel="stylesheet">
+
+
+    <!-- Custom fonts for this template-->
+
+    <link href="<%= ResolveClientUrl("~/vendors/fontawesome-free/css/all.min.css") %>" rel="stylesheet">
+
+    <link href="<%= ResolveClientUrl("~/Styles/jquery-ui.css") %>" rel="stylesheet">
+    <!-- <link href="<%= ResolveClientUrl("~/Styles/pagination.css") %>" rel="stylesheet"> -->
+
+    <link href="<%= ResolveClientUrl("~/vendors/select2/dist/css/select2.min.css")%>" rel="stylesheet">
+
+
+
+    <style>
+        #accordionSidebar
+        {
+            background-color: DARKRED;
+        }
+
+        .GridPager
+        {
+            /*display: inline-block;*/
+            padding-left: 0;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+            .GridPager table > tbody > tr > td
+            {
+                display: inline;
+            }
+
+                .GridPager table > tbody > tr > td > a,
+                .GridPager table > tbody > tr > td > span
+                {
+                    position: relative;
+                    float: left;
+                    padding: 8px 12px;
+                    line-height: 1.42857143;
+                    text-decoration: none;
+                    color: #dd4814;
+                    background-color: #ffffff;
+                    border: 1px solid #dddddd;
+                    margin-left: -1px;
+                }
+
+                .GridPager table > tbody > tr > td > span
+                {
+                    position: relative;
+                    float: left;
+                    padding: 8px 12px;
+                    line-height: 1.42857143;
+                    text-decoration: none;
+                    margin-left: -1px;
+                    z-index: 2;
+                    color: #aea79f;
+                    background-color: #f5f5f5;
+                    border-color: #dddddd;
+                    cursor: default;
+                }
+    </style>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/jquery/dist/jquery.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/Scripts/jquery-ui.js") %>"></script>
+    <script type="text/javascript">
+        function exitoso(mensaje) {
+            $("#paso").html(mensaje);
+            $("#exitoso").show("fold", 1500, desaparecer);
+        }
+        function erroneo(mensaje) {
+            $("#nopaso").html(mensaje);
+            $("#erroneo").show("fold", 1500);
+        }
+        function desaparecer() {
+            setTimeout(function () {
+                $("#exitoso").hide("fold", 1500);
+            }, 1000);
+        }
+
+        //funcion q permite hacer un scroll al final de la pagina
+        function scroll_abajo() {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '< Ant',
+                nextText: 'Sig >',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '< Ant',
+                nextText: 'Sig >',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+        });
+    </script>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Default.aspx">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <%-- <img height="30px" style="padding-bottom: 5px;" src="<%=Page.ResolveUrl("~/imagenes/favicon.png")%>" />--%>
+                </div>
+                <div class="sidebar-brand-text mx-1">Análisis Afectivo</div>
+
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Heading -->
+
+
+            <div id="menu" runat="server">
+
+                <hr class='sidebar-divider'>
+                <div class='sidebar-heading'>General</div>
+
+
+
+           <li class='nav-item'><a class='nav-link collapsed' data-toggle='collapse' data-target='#collapse3' aria-expanded='true' aria-controls='collapse3' href=''><i class=''></i><span>Análisis</span></a>
+                    
+                    
+                    <div id='collapse3' class='collapse' aria-labelledby='headingTwo' data-parent='#accordionSidebar'>
+                        <div class='bg-white py-2 collapse-inner rounded'>
+                            <h6 class='collapse-header'>Análisis</h6>
+                            <a class='collapse-item ' href='/Analisis/AnalisisRealizados.aspx'>Análisis Realizados</a>
+                            <a class='collapse-item ' href='/Analisis/CargaAnalisis.aspx'>Carga de Opiniones</a>
+                           
+                            
+                        </div>
+                    </div>
+
+
+                </li>
+
+
+
+                <li class='nav-item'><a class='nav-link collapsed' data-toggle='collapse' data-target='#collapse1' aria-expanded='true' aria-controls='collapse1' href=''><i class=''></i><span>Parámetros </span></a>               
+                    <div id='collapse1' class='collapse' aria-labelledby='headingTwo' data-parent='#accordionSidebar'>
+                        <div class='bg-white py-2 collapse-inner rounded'>
+                            <h6 class='collapse-header'>Parametros</h6>
+                            <a class='collapse-item ' href='/Mantenedores/ParametroGeneral.aspx'>Parámetros generales</a>
+                            <a class='collapse-item ' href='/Mantenedores/Sentimiento.aspx'>Sentimiento</a>
+                            <a class='collapse-item ' href='/Mantenedores/Palabra.aspx'>Palabra-Sentimiento</a>
+                            <a class='collapse-item ' href='/Mantenedores/PalabraNoEncontrada.aspx'>Palabras no encontradas</a>
+                            <a class='collapse-item ' href='/Mantenedores/Stopword.aspx'>Stopword</a>
+                            <a class='collapse-item ' href='/Mantenedores/Negacion.aspx'>Negación</a>
+                            <a class='collapse-item ' href='/Mantenedores/Monosilabo.aspx'>Monosílabo</a>
+                        </div>
+                    </div>
+                </li>
+                
+
+               <li class='nav-item'><a class='nav-link collapsed' data-toggle='collapse' data-target='#collapse2' aria-expanded='true' aria-controls='collapse2' href=''><i class=''></i><span>Carga Planilla </span></a>                                    
+                    <div id='collapse2' class='collapse' aria-labelledby='headingTwo' data-parent='#accordionSidebar'>
+                        <div class='bg-white py-2 collapse-inner rounded'>
+                            <h6 class='collapse-header'>Carga Planilla</h6>
+                            <a class='collapse-item ' href='/Mantenedores/CargaPalabra.aspx'>Carga Planilla <br />Palabras-Sentimientos</a>
+                            <a class='collapse-item ' href='/Mantenedores/CargaStopword.aspx'>Carga Planilla <br />Stopwords</a>                           
+                        </div>
+                    </div>
+                </li>
+                 <hr class='sidebar-divider'>
+            </div>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" style="background-color: #78bd2e">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content ACA EL CONTENIDO -->
+                <div class="container-fluid">
+                    <form id="form1" runat="server">
+                        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                        <div id="exitoso" class="alert alert-success alert-dismissible fade in" role="alert"
+                            style="margin-top: 53px; display: none;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong id="paso" runat="server"></strong>
+                        </div>
+                        <div id="erroneo" class="alert alert-danger alert-dismissible fade in" role="alert"
+                            style="margin-top: 53px; display: none;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong id="nopaso" runat="server"></strong>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cerrar sesión</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">¿Está seguro que desea cerrar sesión?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/bootstrap/js/bootstrap.bundle.min.js")%>"></script>
+    <!-- Core plugin JavaScript-->
+
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/jquery-easing/jquery.easing.min.js")%>"></script>
+    <!-- FastClick -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/fastclick/lib/fastclick.js") %>"></script>
+    <!-- NProgress -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/nprogress/nprogress.js") %>"></script>
+    <!-- Chart.js -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/Chart.js/dist/Chart.min.js") %>"></script>
+    <!-- gauge.js -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/gauge.js/dist/gauge.min.js") %>"></script>
+    <!-- bootstrap-progressbar -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js") %>"></script>
+    <!-- iCheck -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/iCheck/icheck.min.js") %>"></script>
+    <!-- Skycons -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/skycons/skycons.js") %>"></script>
+    <!-- Flot -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/Flot/jquery.flot.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/Flot/jquery.flot.pie.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/Flot/jquery.flot.time.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/Flot/jquery.flot.stack.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/Flot/jquery.flot.resize.js") %>"></script>
+    <!-- Flot plugins -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/flot.orderbars/js/jquery.flot.orderBars.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/flot-spline/js/jquery.flot.spline.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/flot.curvedlines/curvedLines.js") %>"></script>
+    <!-- DateJS -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/DateJS/build/date.js") %>"></script>
+    <!-- JQVMap -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/jqvmap/dist/jquery.vmap.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/jqvmap/dist/maps/jquery.vmap.world.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js") %>"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/moment/min/moment.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/vendors/bootstrap-daterangepicker/daterangepicker.js") %>"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/build/js/custom.min.js") %>"></script>
+
+</body>
+
+</html>
